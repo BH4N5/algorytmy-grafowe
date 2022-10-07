@@ -58,7 +58,7 @@ for filename in os.listdir(directory):
     
     if ans==int(words[-1]) and T<=1 : print("OK!")
     elif T>1: print("Za wolno!")
-    else: print("Błąd")
+    else: print("Błąd!")
     
     print("-----------------")
 
