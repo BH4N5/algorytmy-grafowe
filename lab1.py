@@ -1,6 +1,13 @@
 import os, time
 from dimacs import *
-    
+
+''' Metoda 1
+Korzystamy ze struktury find-union. Najpierw sortujemy wszystkie krawędzie malejąco
+względem ich wag. Następnie konstruujemy drzewo rozpinające korzystając z tak posortowanych krawędzi
+do momentu kiedy wierzchołki s i t są połączone. Wynikiem algorytmu jest wówczas waga ostatniej 
+wykorzystanej krawędzi. Złożoność algorytmu to O(E log V).
+'''
+
 class Node:
     def __init__(self, val):
         self.val = val
@@ -39,27 +46,44 @@ def Kruskal( G, V, s, t ): # G w postaci krawędziowej (u,v,weight)
         i+=1
     return min_weight
     
-#-------------------------------------------------
 
-directory = 'graphs'
-for filename in os.listdir(directory):
-    f = os.path.join(directory, filename)
-    with open( f ) as F:
-        first_line = F.readline()
-        words = first_line.split()
-    
-    V, L = loadWeightedGraph( f )
-    start = time.time()
-    ans = Kruskal( L, V, 0, 1 )
-    end = time.time()
-    T = end -start
-    print(ans)
-    print("%.4f" % T, "s")
-    
-    if ans==int(words[-1]) and T<=1 : print("OK!")
-    elif T>1: print("Za wolno!")
-    else: print("Błąd!")
-    
-    print("-----------------")
+# Program testujący
+def test():
 
-#-------------------------------------------------
+    total_time = 0
+    Num_correct = 0
+    Num = 0
+    directory = 'graphs'
+    max_time = 0.5
+    for filename in os.listdir(directory):
+        
+        f = os.path.join(directory, filename)
+        with open( f ) as F:
+            first_line = F.readline()
+            words = first_line.split()
+        V, L = loadWeightedGraph( f )
+        
+        start = time.time()
+        ans = Kruskal( L, V, 0, 1 )
+        end = time.time()
+        T = end -start
+        
+        print("Oczekiwany wynik:", int(words[-1]))
+        
+        if ans==int(words[-1]) and T<=max_time : 
+            print("Wynik:", ans, "|", "%.2f" % T, "s","|","OK!")
+            Num_correct += 1
+            
+        elif T>max_time: print("Wynik:", ans, "|", "%.4f" % T, "s", "|", "Za wolno!")
+            
+        else: print("Wynik:", ans, "|", "%.4f" % T, "s","|","Błąd!")
+        
+        Num += 1
+        
+        print("-----------------")
+    
+    print(Num_correct, "/", Num)
+    if Num_correct==Num: print("OK!")
+    else: print("Błędy!")
+
+test()
