@@ -54,7 +54,7 @@ def test():
     Num_correct = 0
     Num = 0
     directory = 'graphs'
-    max_time = 0.5
+    max_time = 1
     for filename in os.listdir(directory):
         
         f = os.path.join(directory, filename)
@@ -67,7 +67,7 @@ def test():
         ans = Kruskal( L, V, 0, 1 )
         end = time.time()
         T = end -start
-        
+        print(f)
         print("Oczekiwany wynik:", int(words[-1]))
         
         if ans==int(words[-1]) and T<=max_time : 
