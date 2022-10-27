@@ -1,8 +1,7 @@
 import os
 import time
-from dimacs import *
 import collections
-
+from dimacs import *
 
 def convert_graph(V, L):
     G = [[0 for i in range(V)] for j in range(V)]
@@ -49,15 +48,17 @@ def EdmondsKarp(P, s, t):
             v = parent[v]
     return max_flow
 
-# Program testujący
-
+def connectivity(P, s, t):
+    graph, ls = P
+    flow = EdmondsKarp(P, s, t)
+    return flow
 
 def test():
 
     total_time = 0
     Num_correct = 0
     Num = 0
-    directory = 'flow'
+    directory = 'connectivity'
     max_time = 1
     for filename in os.listdir(directory):
 
@@ -66,10 +67,10 @@ def test():
         with open(f) as F:
             first_line = F.readline()
             words = first_line.split()
-        V, L = loadDirectedWeightedGraph(f)
+        V, L = loadWeightedGraph(f)
 
         start = time.time()
-        ans = EdmondsKarp(convert_graph(V, L), 0, V-1)
+        ans = connectivity(convert_graph(V, L), 0, V-1)
         end = time.time()
         T = end - start
         print(f)
@@ -90,6 +91,5 @@ def test():
         print("-----------------")
 
     print(Num_correct, "/", Num)
-
 
 test()
