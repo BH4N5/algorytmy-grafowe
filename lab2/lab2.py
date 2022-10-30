@@ -58,7 +58,7 @@ def test():
     Num_correct = 0
     Num = 0
     directory = 'flow'
-    max_time = 1
+    max_time = 100
     for filename in os.listdir(directory):
 
         f = os.path.join(directory, filename)
