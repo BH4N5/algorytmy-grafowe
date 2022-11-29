@@ -17,11 +17,11 @@ V^2 złożoność obu implementacji (tj. przedstawionej i wzorcowej) jest jednak
 '''
 
 
-def StoerWagner(graph):
+def StoerWagner(graph: list[list]) -> int:
     # graph = adjacency matrix; time complexity O(V^3); assuming nontrivial
     # input i.e. connectivity(graph) > 0
 
-    def mergeVertices(graph, s, t):  # O(V)
+    def mergeVertices(graph: list[list], s: int, t: int) -> None:  # O(V)
         for u in range(len(graph)):
             if u != s:
                 graph[s][u] += graph[t][u]
@@ -29,7 +29,7 @@ def StoerWagner(graph):
             graph[t][u] = 0
             graph[u][t] = 0
 
-    def minimumCutPhase(graph):
+    def minimumCutPhase(graph: list[list]) -> int:
         s, t = 0, 0
         processed = [False for _ in range(len(graph))]
         weightSum = [0 for _ in range(len(graph))]
@@ -43,6 +43,7 @@ def StoerWagner(graph):
                 for v in range(len(graph)):
                     if not processed[v]:
                         weightSum[v] += graph[u][v]
+
         tmp_ans = sum(graph[s])
         mergeVertices(graph, s, t)
 
@@ -79,6 +80,7 @@ def test():  # Testy
         with open(f) as F:
             first_line = F.readline()
             words = first_line.split()
+
         V, L = loadWeightedGraph(f)
         graph = convert_graph(V, L)
 
@@ -88,7 +90,7 @@ def test():  # Testy
         T = end - start
 
         print(f)
-        print("Oczekiwany wynik:", int(words[-1]))
+        print("Oczekiwany wynik:", words[-1])
 
         if ans == int(words[-1]) and T <= max_time:
             print("Wynik:", ans, "|", "%.2f" % T, "s", "|", "OK!")
