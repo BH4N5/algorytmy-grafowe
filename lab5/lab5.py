@@ -3,15 +3,7 @@ import time
 from dimacs import *
 
 
-def convertGraph(V, L):
-    Graph = [set() for _ in range(V)]
-    for u, v, w in L:
-        Graph[u - 1].add(v - 1)
-        Graph[v - 1].add(u - 1)
-    return Graph
-
-
-def LexBFS(Graph):
+def LexBFS(Graph: list[set()]) -> list:
     sets = [{u for u in range(len(Graph))}]
     sequence = []
 
@@ -28,9 +20,10 @@ def LexBFS(Graph):
     return sequence
 
 
-def checkPEO(Graph, sequence):
+def checkPEO(Graph: list[set()], sequence: list) -> bool:
     RN = [set() for _ in range(len(Graph))]
     parent = [None for _ in range(len(Graph))]
+
     for u in range(len(Graph)):
         last = None
         for v in sequence:
@@ -42,6 +35,7 @@ def checkPEO(Graph, sequence):
             else:
                 continue
         parent[u] = last
+
     for u in range(len(Graph)):
         if parent[u] != None and not (RN[u] - {parent[u]} <= RN[parent[u]]):
             return False
@@ -52,14 +46,14 @@ def checkPEO(Graph, sequence):
 # Zadanie 1
 
 
-def isChordal(Graph):
+def isChordal(Graph: list[set()]) -> bool:
     return checkPEO(Graph, LexBFS(Graph))
 
 
 # Zadanie 2
 
 
-def maxClique(Graph):
+def maxClique(Graph: list[set()]) -> int:
     sequence = LexBFS(Graph)
     RN = [set() for _ in range(len(Graph))]
     for u in range(len(Graph)):
@@ -80,7 +74,7 @@ def maxClique(Graph):
 # Zadanie 3
 
 
-def chromaticNumber(Graph):
+def chromaticNumber(Graph: list[set()]) -> int:
     sequence = LexBFS(Graph)
     color = [0 for _ in range(len(Graph))]
     maxColor = 0
@@ -94,13 +88,13 @@ def chromaticNumber(Graph):
             c = maxColor
         color[u] = c
 
-    return max(color)
+    return maxColor
 
 
 # Zadanie 4
 
 
-def minCover(Graph):
+def minCover(Graph: list[set()]) -> int:
     sequence = LexBFS(Graph)[::-1]
     I = set()
 
@@ -111,64 +105,40 @@ def minCover(Graph):
     return len(Graph) - len(I)
 
 
-'''
-def checkLexBFS(G, vs):
-    n = len(G)
-    pi = [None] * n
-    for i, v in enumerate(vs):
-        pi[v] = i
-
-    for i in range(n-1):
-        for j in range(i+1, n-1):
-            Ni = G[vs[i]]
-            Nj = G[vs[j]]
-
-            verts = [pi[v] for v in Nj - Ni if pi[v] < i]
-            if verts:
-                viable = [pi[v] for v in Ni - Nj]
-                if not viable or min(verts) <= min(viable):
-                    return False
-    return True
-
-
-directory = 'interval'
-NumOfCorrect = 0
-NumOfAll = 0
-for filename in os.listdir(directory):
-    f = os.path.join(directory, filename)
-    V, L = loadWeightedGraph(f)
-    G = convertGraph(V, L)
-    NumOfCorrect += 1 if checkLexBFS(G, LexBFS(G)) else None
-    NumOfAll += 1
-print(NumOfCorrect, "/", NumOfAll)
-'''
+# Testy
 
 
 def test():
+    def convertGraph(V, L):
+        Graph = [set() for _ in range(V)]
+        for u, v, w in L:
+            Graph[u - 1].add(v - 1)
+            Graph[v - 1].add(u - 1)
+        return Graph
 
-    numOfEx = int(input("Podaj numer zadania: "))
+    numOfEx = input("Podaj numer zadania: ")
 
     match numOfEx:
-        case 1:
+        case "1":
             func = isChordal
-            directory = 'chordal'
+            directory = "chordal"
             print("###### ZADANIE 1 ######")
-        case 2:
+        case "2":
             func = maxClique
-            directory = 'maxclique'
+            directory = "maxclique"
             print("###### ZADANIE 2 ######")
-        case 3:
+        case "3":
             func = chromaticNumber
-            directory = 'coloring'
+            directory = "coloring"
             print("###### ZADANIE 3 ######")
-        case 4:
+        case "4":
             func = minCover
-            directory = 'vcover'
+            directory = "vcover"
             print("###### ZADANIE 4 ######")
         case _:
-            print('Nieprawidłowa komenda. Dostępne komendy: 1, 2, 3, 4')
-            return None 
-        
+            print("Nieprawidłowa komenda. Dostępne komendy: 1, 2, 3, 4")
+            return None
+
     Num_correct = 0
     Num = 0
     max_time = 100
@@ -206,5 +176,6 @@ def test():
     print("---------------------------")
     print("###########################")
     print("---------------------------")
+
 
 test()
