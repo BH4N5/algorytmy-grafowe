@@ -1,4 +1,5 @@
 from data import runtests
+
 """
 Bartosz Hanc | Projekt 1: Jarmark
 
@@ -9,18 +10,18 @@ jej waga -- koszt pokazu). W każdym kroku budowy ścieżki wybieramy zachłanni
 pokaz o minimalnym koszcie i aktualizujemy listę dostępnych pokazów (wraz z ich
 kosztami) uwzględniając przyrost wynagrodzenia bazowego.
 
-Korzystając z listy setów przechowujących dla każdego sztukmistrza indeksy
-wybranych pokazów wykonywanych przez danego sztukmistrza złożoność czasową
-działania algorytmu można sprowadzić do O(N*M+K*N+K*M). Istotnie aktualizacja
-listy dostępnych pokazów wraz z kosztami wymaga maksymalnie O(M) operacji, gdyż
-wystarczy przechowywać i zaktualizować najtańszy dostępny pokaz dla
-sztukmistrza, którego pokaz wybraliśmy, a sprawdzenie czy dany pokaz nie został
-już wybrany wykonujemy korzystając z setu w O(1). Znalezienie najtańszego pokazu
-wymaga O(N) operacji, gdyż dla każdego sztukmistrza przechowujemy aktualnie
-najtańszy oferowany pokaz. Potrzebujemy więc O(N*M) operacji do stworzenia listy
-początkowo najtańszych pokazów oferowanych przez każego sztukmistrza, a
-następnie K razy znajdujemy najtańszy pokaz i aktualizujemy listę pokazów, co
-daje całkowitą złożoność O(N*M + K*(N + M)).
+Korzystając z listy setów, przechowujących dla każdego sztukmistrza indeksy
+wykonywanych pokazów, złożoność czasową działania algorytmu można sprowadzić do
+O(N*M+K*N+K*M). Istotnie aktualizacja listy dostępnych pokazów wraz z kosztami
+wymaga maksymalnie O(M) operacji, gdyż wystarczy przechowywać i zaktualizować
+najtańszy dostępny pokaz dla sztukmistrza, którego pokaz wybraliśmy, a
+sprawdzenie czy dany pokaz nie został już wybrany wykonujemy korzystając z setu
+w O(1). Znalezienie najtańszego pokazu wymaga O(N) operacji, gdyż dla każdego
+sztukmistrza przechowujemy aktualnie najtańszy oferowany pokaz. Potrzebujemy
+więc O(N*M) operacji do stworzenia listy początkowo najtańszych pokazów
+oferowanych przez każego sztukmistrza, a następnie K razy znajdujemy najtańszy
+pokaz i aktualizujemy listę pokazów, co daje całkowitą złożoność O(N*M + K*(N +
+M)).
 """
 
 

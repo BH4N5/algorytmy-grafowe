@@ -108,7 +108,7 @@ def minCover(Graph: list[set()]) -> int:
 # Testy
 
 
-def test():
+def runtests():
     def convertGraph(V, L):
         Graph = [set() for _ in range(V)]
         for u, v, w in L:
@@ -178,4 +178,4 @@ def test():
     print("---------------------------")
 
 
-test()
+runtests()
