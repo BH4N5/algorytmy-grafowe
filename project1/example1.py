@@ -1,4 +1,5 @@
-# author: Bartosz Hanc
+# Projekt 1
+# Author: Bartosz Hanc
 
 from data import runtests
 
