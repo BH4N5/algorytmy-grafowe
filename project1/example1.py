@@ -1,6 +1,8 @@
 # author: Bartosz Hanc
 
 from data import runtests
+import sys
+sys.setrecursionlimit(10**6)
 
 
 def rek(MEM, C, N, k, wiz=0, show=0):
