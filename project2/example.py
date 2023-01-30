@@ -18,4 +18,4 @@ def solve(N, channels):  # O(N log N + E)
     return m+1 if sum(d[:m+1]) == m*(m+1) + sum(d[m+1:]) else None
 
 
-runtests(my_solve)
+runtests(solve)
