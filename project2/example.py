@@ -3,7 +3,7 @@
 from data import runtests
 
 
-def my_solve(N, channels):  # O(N log N + E)
+def solve(N, channels):  # O(N log N + E)
     d = [0 for _ in range(N)]
     for u, v in channels:
         d[u-1] += 1
